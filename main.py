@@ -5,6 +5,9 @@ import random
 
 pg.init()
 pg.mixer.init()
+pg.display.set_caption("Grand piano")
+icon_image = pg.image.load("i (1).webp")
+pg.display.set_icon(icon_image)
 
 # константы
 # здесь записан порядок нот и их длительность для каждой песни
@@ -155,16 +158,16 @@ def play_note():
 f1 = pg.font.Font(None, 38)
 
 # создание песен
-song1 = Song("В лесу родилась ёлочка", CHRISTMAS_TREE_NOTES, CHRISTMAS_TREE_DURATION, (20, 100, 360, 45))
-song2 = Song("Во поле береза стояла", BIRCH_NOTES, BIRCH_DURATION, (20, 200, 360, 45), interval=0.7)
-song3 = Song("Утро", MORNING_NOTES, MORNING_DURATION, (20, 300, 360, 45))
+song1 = Song("A tree was born in the forest", CHRISTMAS_TREE_NOTES, CHRISTMAS_TREE_DURATION, (20, 100, 360, 45))
+song2 = Song("There was a birch tree", BIRCH_NOTES, BIRCH_DURATION, (20, 200, 360, 45), interval=0.7)
+song3 = Song("Morning", MORNING_NOTES, MORNING_DURATION, (20, 300, 360, 45))
 
 background_menu = pg.image.load("menu.png")
 background_menu = pg.transform.scale(background_menu, SIZE)
 
 is_play = False
 
-# ВРЕМЕННЫЙ КОД для запуска без меню
+# Menu settings
 screen_notes = pg.sprite.Group()
 created_notes = 0
 next_note = 0
@@ -245,18 +248,17 @@ while True:
                 if not note.played:
                     break
             else:
-                text = f1.render("ПОБЕДА", True, pg.Color("green"))
+                text = f1.render("You win", True, pg.Color("green"))
                 text_rect = text.get_rect(center=(SIZE[0] // 2, SIZE[1] // 2))
                 screen.blit(text, text_rect)
                 is_play = False
 
         for note in screen_notes:
             if note.rect.y > 500 and not note.played:
-                text = f1.render("ПОРАЖЕНИЕ", True, pg.Color("red"))
+                text = f1.render("Defeat", True, pg.Color("red"))
                 text_rect = text.get_rect(center=(SIZE[0] // 2, SIZE[1] // 2))
                 screen.blit(text, text_rect)
                 is_play = False
-
 
     pg.display.flip()
     clock.tick(fps)
